@@ -1,33 +1,34 @@
 package sample;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Font;
+
+import java.io.IOException;
 
 
 public class Controller {
     @FXML
     private TextArea txtArea;
     @FXML
-    private CheckMenuItem Arial;
+    private Button Copiar;
     @FXML
-    private CheckMenuItem TimesNewRoman;
+    private Button Cortar;
     @FXML
-    private CheckMenuItem Size24;
-    @FXML
-    private CheckMenuItem Size11;
+    private Parent root;
 
-    public void onClick(ActionEvent e) {
+
+    public void onClick(ActionEvent e) throws IOException {
 
         //Creamos un action event para el menu
-        CheckMenuItem fonts[] = {Arial, TimesNewRoman};
-        CheckMenuItem size[] = {Size24, Size11};
         double tSize = txtArea.getFont().getSize();
         String tFont = txtArea.getFont().getFamily();
         Button tempBton;
         MenuItem tempMenuItem;
-        MenuItem tempCheckMenu;
         String option;
         Class clase = e.getSource().getClass();
 
@@ -35,14 +36,12 @@ public class Controller {
         if (clase == Button.class) {
             tempBton = (Button) e.getSource();
             option = tempBton.getText();
-        } else if (clase == CheckMenuItem.class) {
-            tempCheckMenu = (CheckMenuItem) e.getSource();
-            option = tempCheckMenu.getText();
         } else {
             tempMenuItem = (MenuItem) e.getSource();
             option = tempMenuItem.getText();
         }
         switch (option) {
+            //Fa referencia al text del botó per aixo serveix per als dos btons
             case "Copiar":
                 txtArea.copy();
                 txtArea.requestFocus();
@@ -55,24 +54,32 @@ public class Controller {
                 txtArea.paste();
                 txtArea.requestFocus();
                 break;
-
+            case "Deshacer":
+                txtArea.undo();
+                txtArea.requestFocus();
+                break;
+            case "Abrir":
+                txtArea.setText(DialogUtils.AbrirDialogo(root));
+                break;
+            case "Guardar":
+                DialogUtils.GuardarDialogo(txtArea.getText(), root);
+                break;
+            case "Cerrar":
+                Platform.exit();
+                break;
             case "Arial":
                 txtArea.setFont(Font.font("Arial", tSize));
-                for (CheckMenuItem item : fonts) {
-                    if (!item.getId().equalsIgnoreCase("Arial") && item.isSelected()) {
-                        item.setSelected(false);
-                        return;
-                    }
-                }
                 break;
-            case "TimesNewRoman":
-                txtArea.setFont(Font.font("TimesNewRoman", tSize));
-                for (CheckMenuItem item : fonts) {
-                    if (!item.getId().equalsIgnoreCase("TimesNewRoman") && item.isSelected()) {
-                        item.setSelected(false);
-                        return;
-                    }
-                }
+            case "Calibri":
+                txtArea.setFont(Font.font("Calibri", tSize));
+                break;
+            case "11px":
+                tSize = 11;
+                txtArea.setFont(Font.font(tFont, tSize));
+                break;
+            case "24px":
+                tSize = 24;
+                txtArea.setFont(Font.font(tFont, tSize));
                 break;
             case "App":
                 Alert info = new Alert(Alert.AlertType.INFORMATION);
@@ -81,6 +88,18 @@ public class Controller {
                 info.setHeaderText("JavaFX P03");
                 info.show();
         }
-
     }
+
+    public void onMouseIn(MouseEvent e) {
+        txtArea.selectionProperty().addListener(observable -> {
+            if (txtArea.getSelectedText().equals("")) {
+                Copiar.setDisable(true);
+                Cortar.setDisable(true);
+            } else {
+                Copiar.setDisable(false);
+                Cortar.setDisable(false);
+            }
+        });
+    }
+
 }
