@@ -16,7 +16,7 @@ public class DialogUtils {
         return r;
     }
 
-    static void guardar(File file,String text) throws IOException{
+    static void Guardar(File file, String text) throws IOException {
         FileWriter f = new FileWriter(file);
         f.write(text);
         f.close();
@@ -34,6 +34,15 @@ public class DialogUtils {
         return text;
     }
 
+    static void GuardarDialogo(String content, Parent root) throws IOException {
+        FileChooser escoger = new FileChooser();
 
+
+        Stage vista = (Stage) root.getScene().getWindow();
+        File file = escoger.showSaveDialog(vista);
+        if (file != null) {
+            Guardar(file, content);
+        }
+    }
 
 }
