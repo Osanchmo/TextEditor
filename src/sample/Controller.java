@@ -15,11 +15,11 @@ public class Controller {
     @FXML
     private TextArea txtArea;
     @FXML
-    private Button Copiar;
+    private Button copy;
     @FXML
-    private Button Cortar;
+    private Button cut;
     @FXML
-    private Parent root;
+    private Parent par;
 
 
     public void onClick(ActionEvent e) throws IOException {
@@ -27,6 +27,7 @@ public class Controller {
         //Creamos un action event para el menu
         double tSize = txtArea.getFont().getSize();
         String tFont = txtArea.getFont().getFamily();
+
         Button tempBton;
         MenuItem tempMenuItem;
         String option;
@@ -59,10 +60,10 @@ public class Controller {
                 txtArea.requestFocus();
                 break;
             case "Abrir":
-                txtArea.setText(DialogUtils.AbrirDialogo(root));
+               DialogUtils.AbrirDialogo(par);
                 break;
             case "Guardar":
-                DialogUtils.GuardarDialogo(txtArea.getText(), root);
+                DialogUtils.GuardarDialogo(txtArea.getText(), par);
                 break;
             case "Cerrar":
                 Platform.exit();
@@ -70,8 +71,8 @@ public class Controller {
             case "Arial":
                 txtArea.setFont(Font.font("Arial", tSize));
                 break;
-            case "Calibri":
-                txtArea.setFont(Font.font("Calibri", tSize));
+            case "TimesNewRoman":
+                txtArea.setFont(Font.font("TimesNewRoman", tSize));
                 break;
             case "11px":
                 tSize = 11;
@@ -93,11 +94,11 @@ public class Controller {
     public void onMouseIn(MouseEvent e) {
         txtArea.selectionProperty().addListener(observable -> {
             if (txtArea.getSelectedText().equals("")) {
-                Copiar.setDisable(true);
-                Cortar.setDisable(true);
+                copy.setDisable(true);
+                cut.setDisable(true);
             } else {
-                Copiar.setDisable(false);
-                Cortar.setDisable(false);
+                copy.setDisable(false);
+                cut.setDisable(false);
             }
         });
     }

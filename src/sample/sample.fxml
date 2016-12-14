@@ -11,38 +11,38 @@
 <?import javafx.scene.layout.VBox?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.112-ea"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+      xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" fx:id="par">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="Archivo">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Abrir" />
-                  <MenuItem mnemonicParsing="false" text="Guardar" />
-                  <MenuItem mnemonicParsing="false" text="Cerrar" />
+                  <MenuItem mnemonicParsing="false" onAction="#onClick" text="Abrir" />
+                  <MenuItem mnemonicParsing="false" onAction="#onClick" text="Guardar" />
+                  <MenuItem mnemonicParsing="false" onAction="#onClick" text="Cerrar" />
                </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Editar">
           <items>
               <MenuItem fx:id="Copiar" mnemonicParsing="false" onAction="#onClick" text="Copiar"/>
-              <MenuItem fx:id="Cortar" mnemonicParsing="false" text="Cortar"/>
+              <MenuItem fx:id="Cortar" mnemonicParsing="false" onAction="#onClick" text="Cortar"/>
               <MenuItem fx:id="Pegar" mnemonicParsing="false" onAction="#onClick" text="Pegar"/>
-              <MenuItem fx:id="Deshacer" mnemonicParsing="false" text="Deshacer"/>
+              <MenuItem fx:id="Deshacer" mnemonicParsing="false" onAction="#onClick" text="Deshacer"/>
           </items>
         </Menu>
         <Menu mnemonicParsing="false" text="Opcions">
           <items>
                   <Menu mnemonicParsing="false" text="Fuente">
                      <items>
-                         <CheckMenuItem fx:id="Arial" mnemonicParsing="false" onAction="#onClick" text="Arial"/>
-                         <CheckMenuItem fx:id="TimesNewRoman" mnemonicParsing="false" onAction="#onClick"
+                         <MenuItem fx:id="Arial" mnemonicParsing="false" onAction="#onClick" text="Arial"/>
+                         <MenuItem fx:id="TimesNewRoman" mnemonicParsing="false" onAction="#onClick"
                                         text="TimesNewRoman"/>
                      </items>
                   </Menu>
                   <Menu mnemonicParsing="false" text="Tamaño">
                     <items>
-                        <CheckMenuItem fx:id="Size11" mnemonicParsing="false" onAction="#onClick" text="11"/>
-                        <CheckMenuItem fx:id="Size24" mnemonicParsing="false" onAction="#onClick" text="24"/>
+                        <MenuItem fx:id="Size11" mnemonicParsing="false" onAction="#onClick" text="11px"/>
+                        <MenuItem fx:id="Size24" mnemonicParsing="false" onAction="#onClick" text="24px"/>
                     </items>
                   </Menu>
           </items>
@@ -56,15 +56,15 @@
     </MenuBar>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
-             <TextArea fx:id="txtArea" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+             <TextArea fx:id="txtArea" onMouseEntered="#onMouseIn" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
          </children>
     </AnchorPane>
       <ToolBar>
         <items>
-          <Button mnemonicParsing="false" text="Copiar" />
-            <Button mnemonicParsing="false" text="Cortar" />
-            <Button mnemonicParsing="false" text="Pegar" />
+            <Button fx:id="copy" mnemonicParsing="false" text="Copiar" onAction="#onClick"/>
+            <Button fx:id="cut"  mnemonicParsing="false" text="Cortar" onAction="#onClick"/>
+            <Button fx:id="paste" mnemonicParsing="false" text="Pegar" onAction="#onClick"/>
         </items>
       </ToolBar>
   </children>
